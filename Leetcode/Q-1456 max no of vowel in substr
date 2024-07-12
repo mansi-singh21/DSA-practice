@@ -1,0 +1,23 @@
+class Solution {
+    public int maxVowels(String s, int k) {
+      int v=0;
+      int ans=0;
+      for(int j=0;j<k;j++){
+        if(s.charAt(j)=='a'||s.charAt(j)=='e'||s.charAt(j)=='i'||s.charAt(j)=='o'||s.charAt(j)=='u'){
+               v++; 
+            }
+      }
+      ans=v;
+      for(int j=k;j<s.length();j++){
+        if(s.charAt(j-k)=='a'||s.charAt(j-k)=='e'||s.charAt(j-k)=='i'||s.charAt(j-k)=='o'||s.charAt(j-k)=='u'){
+               v--; 
+        }
+        if(s.charAt(j)=='a'||s.charAt(j)=='e'||s.charAt(j)=='i'||s.charAt(j)=='o'||s.charAt(j)=='u'){
+               v++; 
+        }
+        ans=Math.max(ans,v);
+      }
+      return ans;
+
+    }
+}
