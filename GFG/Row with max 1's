@@ -1,0 +1,26 @@
+class Solution {
+    int rowWithMax1s(int arr[][], int n, int m) {
+        // code here
+        int f=0;
+        int c=0;
+        int r=-2;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(arr[i][j]==1){
+                        c++;
+                }
+            }
+            if(c>f){
+                f=c;
+                r=i;
+            }
+            c=0;
+        }
+        if(r==-2){
+            return -1;
+        }
+        else{
+            return r;
+        }
+    }
+}
