@@ -1,0 +1,18 @@
+class Solution {
+    static ArrayList<Long> factorialNumbers(long n) {
+        // code here
+        ArrayList<Long> fact=new ArrayList<>();
+        long ft=1;
+        for(long i=1;i<=n;i++){
+            ft=ft*i;
+            if(ft<=n){
+                fact.add(ft);
+            }
+            else{
+                break;
+            }
+        }
+        return fact;
+        
+    }
+}
