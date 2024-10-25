@@ -1,0 +1,25 @@
+class Solution
+{
+public:
+void inorder(Node* root,vector<int> &vec){
+    if(root==nullptr) return;
+    inorder(root->left,vec);
+    vec.push_back(root->data);
+    inorder(root->right,vec);
+}
+Node* flattenBST(Node *root){
+        // code here
+    vector<int> vec;
+    inorder(root,vec);
+    Node* nroot=new Node(vec[0]);
+    Node* cur=nroot;
+    int i=1;
+    while(cur!=nullptr && i<vec.size()){
+        cur->left=NULL;
+        Node* temp=new Node(vec[i++]);
+        cur->right=temp;
+        cur=cur->right;
+    }
+    return nroot;
+    }
+};
