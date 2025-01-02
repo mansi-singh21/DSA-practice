@@ -1,0 +1,53 @@
+class Solution {
+    pair<int,int>BFS(unordered_map<int,vector<int>>& adj,int source){
+        queue<int>q;
+        q.push(source);
+        unordered_map<int,bool>visited;
+        visited[source]=true;
+        int distance=0;
+        int farthest=source;
+        while(!q.empty()){
+            int size=q.size();
+            while(size--){
+                int cur=q.front();
+                q.pop();
+                farthest=cur;
+                for(auto &nbr: adj[cur]){
+                    if(visited[nbr]==false){
+                        visited[nbr]=true;
+                        q.push(nbr);
+                    }
+                }
+            }
+            if(!q.empty()){
+                distance++;
+            }
+        }
+        return {farthest,distance};
+    }
+    int finddiameter(unordered_map<int,vector<int>>adj){
+        auto[farthest,dist]=BFS(adj,0);
+        auto[othernode,diameter]=BFS(adj,farthest);
+        return diameter;
+    }
+    unordered_map<int,vector<int>> buildadj(vector<vector<int>>&edges){
+        unordered_map<int,vector<int>>adj;
+        for(auto &edge:edges){
+            int u=edge[0];
+            int v=edge[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        return adj;
+    }
+
+public:
+    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
+        unordered_map<int,vector<int>> adj1=buildadj(edges1);
+        unordered_map<int,vector<int>> adj2=buildadj(edges2);
+        int d1=finddiameter(adj1);
+        int d2=finddiameter(adj2);
+        int combo=(d1+1)/2+(d2+1)/2+1;
+        return max({d1,d2,combo});
+    }
+};
