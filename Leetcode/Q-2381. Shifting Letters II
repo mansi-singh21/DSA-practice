@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string shiftingLetters(string s, vector<vector<int>>& shifts) {
+        vector<int> arr(s.length() + 1, 0);
+        for(int i=0;i<shifts.size();i++){
+            int start=shifts[i][0];
+            int end=shifts[i][1];
+            int ch=shifts[i][2];
+            if(ch==0){
+                arr[start]+=25;
+                if(end+1<s.length()){
+                    arr[end+1]-=25;
+                }
+            }else{
+                arr[start]+=1;
+                if(end+1<s.length()){
+                    arr[end+1]-=1;
+                }
+            }
+        }
+        int cumu=0;
+        for (int i = 0; i < s.length(); ++i) {
+            cumu += arr[i];
+            int shift = ((s[i] - 'a') + cumu) % 26;
+            if (shift < 0) shift += 26; // Handle negative shifts
+            s[i] = 'a' + shift;
+        }
+        return s;
+    }
+};
