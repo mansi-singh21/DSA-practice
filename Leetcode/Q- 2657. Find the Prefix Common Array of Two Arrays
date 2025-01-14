@@ -1,3 +1,49 @@
+//method 1: TC: O(n)
+
+class Solution {
+    public int[] findThePrefixCommonArray(int[] A, int[] B) {
+        int n=A.length;
+        int[] common=new int[n];
+        HashMap<Integer,Integer> mp=new HashMap<>();
+        int count=0;
+        for(int i=0;i<n;i++){
+            mp.put(A[i], mp.getOrDefault(A[i], 0) + 1);
+            if(mp.get(A[i])==2) count++;
+            mp.put(B[i], mp.getOrDefault(B[i], 0) + 1);
+            if(mp.get(B[i])==2) count++;
+            common[i]=count;
+        }
+        return common;
+    }
+}
+
+
+
+//method 2----> TC: O(n^2)
+
+class Solution {
+    public int[] findThePrefixCommonArray(int[] A, int[] B) {
+        int n=A.length;
+        int[] common=new int[n];
+        boolean[] ispresentA=new boolean[n+1];
+        boolean[] ispresentB=new boolean[n+1];
+        for(int i=0;i<n;i++){
+            ispresentA[A[i]]=true;
+            ispresentB[B[i]]=true;
+            int count=0;
+            for(int j=1;j<=n;j++){
+                if(ispresentA[j]==true && ispresentB[j]==true) count++;
+            }
+            common[i]=count;
+        }
+        return common;
+    }
+}
+
+
+
+//method 3---> TC: O(n^3)
+
 class Solution {
     public int[] findThePrefixCommonArray(int[] A, int[] B) {
         int n=A.length;
@@ -8,6 +54,7 @@ class Solution {
                 for(int k=0;k<=i;k++){
                     if(A[j]==B[k]){
                         count++;
+                        break;
                     }
                 }
             }
