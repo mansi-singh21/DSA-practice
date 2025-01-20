@@ -1,0 +1,25 @@
+class Solution {
+    public int firstCompleteIndex(int[] arr, int[][] mat) {
+        int rows=mat.length;
+        int cols=mat[0].length;
+        int rowcount[]=new int[rows];
+        int colcount[]=new int[cols];
+        Map<Integer, int[]> pos=new HashMap<>();
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                int val=mat[i][j];
+                pos.put(val,new int[]{i,j});
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            int num=arr[i];
+            int[] p=pos.get(num);
+            int r=p[0];
+            int c=p[1];
+            rowcount[r]++;
+            colcount[c]++;
+            if(rowcount[r]==cols || colcount[c]==rows) return i;
+        }
+        return -1;
+    }
+}
