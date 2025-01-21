@@ -1,0 +1,16 @@
+class Solution {
+    public long gridGame(int[][] grid) {
+        long minisum=Long.MAX_VALUE;
+        long row1sum=0;
+        long row2sum=0;
+        for(int i=0;i<grid[0].length;i++){
+            row1sum+=grid[0][i];
+        }
+        for(int i=0;i<grid[0].length;i++){
+            row1sum-=grid[0][i];
+            minisum=Math.min(minisum,Math.max(row1sum,row2sum));
+            row2sum+=grid[1][i];
+        }
+        return minisum;
+    }
+}
