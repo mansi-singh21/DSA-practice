@@ -1,0 +1,12 @@
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long long c=0;
+        long long streak=0;
+        for(int n:nums){
+            streak=(n==0)?streak+1:0;
+            c+=streak;
+        }
+        return c;
+    }
+};
