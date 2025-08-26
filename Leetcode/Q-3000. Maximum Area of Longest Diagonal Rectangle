@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int areaOfMaxDiagonal(vector<vector<int>>& dimensions) {
+        int maxdia=0;
+        int maxar=0;
+        for(auto dim:dimensions){
+            int l=dim[0];
+            int w=dim[1];
+            int area=l*w;
+            int dia=l*l+w*w;
+            if(dia>maxdia){
+                maxdia=dia;
+                maxar=area;
+            }else if(dia==maxdia){
+                maxar=max(maxar,area);
+            }
+        }
+        return maxar;
+    } 
+};
