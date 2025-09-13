@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxFreqSum(string s) {
+        vector<int> hash;
+        hash.assign(26,0);
+        for(char c:s){
+            hash[c-'a']++;
+        }
+        int arr[]={0,4,8,14,20};
+        int maxv=0;
+        for(int i: arr){
+            maxv=max(maxv,hash[i]);
+            hash[i]=0;
+        }
+        sort(hash.begin(),hash.end());
+        int maxc=hash[25];
+        return maxv+maxc;
+    }
+};
