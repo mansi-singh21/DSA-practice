@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+class Spreadsheet {
+    private:
+    unordered_map<string,int> sheet;
+    bool isInteger(const string &s) {
+        if (s.empty()) return false;
+        for (char c : s) if (!isdigit(c)) return false;
+        return true;
+    }
+    int getOperandValue(const string &op) {
+        if (isInteger(op)) {
+            return stoi(op);
+        }
+        auto it = sheet.find(op);
+        if (it != sheet.end()) {
+            return it->second; 
+        }
+        return 0;               
+    }
+
+public:
+    Spreadsheet(int rows) {
+        // unordered_map<string,int> sheet;
+    }
+    
+    void setCell(string cell, int value) {
+        sheet[cell]=value;
+    }
+    
+    void resetCell(string cell) {
+        sheet[cell]=0;
+    }
+    
+    int getValue(string formula) {
+        auto pos = formula.find('+');
+        string X = formula.substr(1, pos - 1); 
+        string Y = formula.substr(pos + 1);
+
+        return getOperandValue(X) + getOperandValue(Y);
+    }
+};
