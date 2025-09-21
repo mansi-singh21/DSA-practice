@@ -1,0 +1,32 @@
+#include<algorithm>
+#include<iomanip>
+class Solution {
+  public:
+    bool static comp(pair<int,int> a,pair<int,int> b){
+        double m=(double)a.first/a.second;
+        double n=(double)b.first/b.second;
+        return m>n;
+    }
+    double fractionalKnapsack(vector<int>& val, vector<int>& wt, int capacity) {
+        // code here
+        vector<pair<int,int>> bag;
+        for(int i=0;i<val.size();i++){
+            bag.push_back({val[i],wt[i]});
+        }
+        sort(bag.begin(),bag.end(),comp);
+        int currw=0;
+        double finalval=0.0;
+        for(int i=0;i<bag.size();i++){
+            if(currw+bag[i].second<=capacity){
+                currw+=bag[i].second;
+                finalval+=bag[i].first;
+            }else{
+                int remain=capacity-currw;
+                finalval+=(double(remain)/bag[i].second)*bag[i].first;
+                break;
+            }
+        }
+        finalval=double(finalval*1000000.0)/1000000.0;
+        return finalval;
+    }
+};
