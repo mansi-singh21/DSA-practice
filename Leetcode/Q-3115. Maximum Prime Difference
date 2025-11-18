@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isPrime(int n) {
+        // code here
+        if(n<=1) return false;
+        for(int i=2; i*i<=n;i++){
+            if(n%i==0) return false;
+            
+        }
+        return true;
+    }
+    int maximumPrimeDifference(vector<int>& nums) {
+        int m=-1;
+        int n=0;
+        int diff=0;
+        for(int i=0;i<nums.size();i++){
+            if(isPrime(nums[i])){
+                if(m==-1)m=i;          
+                else{
+                    if(diff<=abs(m-n)){
+                        n=max(n,i);
+                    }
+                }
+            }
+        }
+        if(n==0) return diff;
+        return abs(m-n);
+    }
+};
