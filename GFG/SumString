@@ -1,0 +1,45 @@
+class Solution {
+  public:
+    string addStrings(string num1, string num2) {
+        int i,j,c=0;
+        i=num1.size()-1;
+        j=num2.size()-1;
+        string res="";
+        while(i>=0 || j>=0 || c){
+            int d1= (i>=0)?num1[i]-'0':0;
+            int d2= (j>=0)?num2[j]-'0':0;
+            int sum=d1+d2+c;
+            c=sum/10;
+            res+=to_string(sum%10);
+            i--;
+            j--;
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+    bool checksumstr(string s, int beg, int l1, int l2){
+        int n=s.length();
+        string s1=s.substr(beg,l1);
+        string s2=s.substr(beg+l1,l2);
+        string s3=addStrings(s1,s2);
+        int s3len=s3.length();
+        if(s3len>n-beg-l1-l2)return false;
+         
+        if(s3==s.substr(beg+l1+l2,s3len)){
+            if(beg+l1+l2+s3len==n) return true;
+            
+            return checksumstr(s,beg+l1,l2,s3len);
+        }
+        return false;
+    }
+    bool isSumString(string &s) {
+        // code here
+        int n=s.length();
+        for(int i=1;i<n;i++){
+            for(int j=1;j<n;j++){
+                if(checksumstr(s,0,i,j)) return true;
+            }
+        }
+        return false;
+    }
+};
