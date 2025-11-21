@@ -1,0 +1,51 @@
+//https://www.hackerrank.com/contests/ca1k23shodd/challenges/partition-array-into-two-equal-sum-subsets/copy-from/1400758520
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+void gen(int idx, vector<int> &a, vector<int> &cur, vector<vector<int>> &out){
+    int s=a.size();
+    if(idx==s){
+        out.push_back(cur);
+        return;
+    }
+    gen(idx+1,a,cur,out);
+    cur.push_back(a[idx]);
+    gen(idx+1,a,cur,out);
+    cur.pop_back();
+}
+int main() {
+    int n;
+    cin>>n;
+    vector<int> a(n,0);
+    vector<long long> sums;
+    for(int i=0;i<n;i++){
+        int k=0;
+        cin>>k;
+        a[i]=k;
+    }
+    int t=0;
+    cin>>t;
+    vector<int>cur;
+    vector<vector<int>> out;
+    gen(0,a,cur,out);
+    sums.reserve(out.size());
+    for(auto subset: out){
+        long long s=0;
+        for(int x: subset){
+            s+=x;
+        }
+        sums.push_back(s);
+    }
+    int c=0;
+    for(auto x: sums){
+        if(x==t) c++;
+    }
+    if(c>=2) cout<<"Yes";
+    else cout<<"No";
+    return 0;
+}
