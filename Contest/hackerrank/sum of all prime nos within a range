@@ -1,0 +1,41 @@
+//https://www.hackerrank.com/contests/ca1k23shodd/challenges/sum-of-all-prime-numbers-within-a-range
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> sieve(int st, int end) {
+    
+    // creation of boolean array
+    vector<bool> prime(end + 1, true);
+    for (int p = 2; p * p <= end; p++) {
+        if (prime[p] == true) {
+            
+            // marking as false
+            for (int i = p * p; i <= end; i += p)
+                prime[i] = false;
+        }
+    }
+    
+    vector<int> res;
+    if(st==1)st+=1;
+    for (int p = st; p <= end; p++){
+        if (prime[p]){ 
+            res.push_back(p);
+        }
+    }
+    return res;
+}
+
+int main(){
+    int st=0;
+    int end=0;
+    cin>>st>>end;
+    vector<int> res = sieve(st,end);
+    int sum=0;
+    for(auto ele : res){
+        sum+=ele;
+    }
+    cout<<sum;
+    return 0;
+}
