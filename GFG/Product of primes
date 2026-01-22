@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    int primeProduct(int L, int R) {
+        // code here
+        const long long MOD = 1e9 + 7;
+        vector<bool> sieve(R+1, true);
+        sieve[0]=sieve[1]=false;
+        for(int i=2;i*i<=R;i++){
+            if(sieve[i]){
+                for(int j=i*i;j<=R;j+=i){
+                    sieve[j]=false;
+                }
+            }
+        }
+        long long ans=1;
+        for(int i=max(2,L);i<=R;i++){
+            if(sieve[i]){
+                ans=(ans*i)%MOD;
+            }
+        }
+        return ans>1? ans: 1;
+    }
+};
