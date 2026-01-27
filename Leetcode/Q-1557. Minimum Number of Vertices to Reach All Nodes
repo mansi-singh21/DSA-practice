@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adjrev(n);
+        for(auto e:edges){
+            adjrev[e[1]].push_back(e[0]);
+        }
+        vector<int> c;
+        for(int i=0;i<n;i++){
+            if(adjrev[i].size()==0){
+                c.push_back(i);
+            }
+        }
+        return c;
+    }
+};
