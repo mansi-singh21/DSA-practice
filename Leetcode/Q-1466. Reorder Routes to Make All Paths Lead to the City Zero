@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int ans=0;
+    void dfs(unordered_map<int,vector<pair<int,int>>>& adj,int parent,int node){
+        for(auto &s: adj[node]){
+            int a=s.first;
+            int dir=s.second;
+            if(a!=parent){
+                if(dir==1){
+                    ans++;
+                }
+                dfs(adj,node,a);
+            }
+        }
+    }
+    int minReorder(int n, vector<vector<int>>& connections) {
+        unordered_map<int,vector<pair<int,int>>> adj;
+        for(auto &c:connections){
+            adj[c[0]].push_back({c[1],1});
+            adj[c[1]].push_back({c[0],0});
+        }
+        dfs(adj,-1,0);
+        return ans;
+    }
+};
